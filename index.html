@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>Document</title>
+  <style>
+    *{margin: 0;padding: 0; border:0;}
+    body {background: #000;}
+   /* #div1{position: relative; width: 400px; overflow: hidden; height: 100px; padding: 20px 0; margin-top: 20px;}
+    #div1 ul {position:absolute; left: 0; top: 0;}
+    #div1 ul li{float: left; width: 80px; margin-left: 20px; height: 50px; background: #ccc; list-style: none outside none;}
+    #btn1,#btn2 {width: 100px; height: 50px; background: #999}*/
+    .div1 {width: 5px; height: 20px; background: red; position: absolute; }
+    .div2 {width: 5px; height: 5px; position: absolute;}
+  </style>
+  <script type="text/javascript" src="move2.js"></script>
+  <script>
+   // window.onload = function(){
+   //  var oDiv = document.getElementById("div1");
+   //  var oUl = oDiv.getElementsByTagName("ul")[0];
+   //  var aLi = oUl.getElementsByTagName("li");
+   //  var oBtn1 = document.getElementById("btn1");
+   //  var oBtn2 = document.getElementById("btn2");
+   //  var timer = null;
+   //  oUl.innerHTML = oUl.innerHTML + oUl.innerHTML;
+   //  oUl.style.width = aLi.length*(aLi[0].offsetWidth+20)+'px';
+   //  console.log(aLi[0].offsetWidth)
+   //  var speed = -2;
+   //  function move(){
+   //    if(oUl.offsetLeft < -oUl.offsetWidth/2){
+   //      oUl.style.left = '0';
+
+   //    }
+   //    if(oUl.offsetLeft>0){
+   //      oUl.style.left = -oUl.offsetWidth/2+'px';
+   //    }
+   //    oUl.style.left = oUl.offsetLeft+speed+'px';
+   //  };
+   //  timer = setInterval(move,30);
+   //  oUl.onmouseover = function(){
+   //    clearInterval(timer);
+   //  };
+   //  oUl.onmouseout = function(){
+   //    timer = setInterval(move,30);
+   //  }
+   //  oBtn1.onclick = function(){
+   //    speed = -2;
+   //  }
+   //  oBtn2.onclick = function(){
+   //    speed = 2;
+   //  }
+   // }
+   window.onload = function(){
+    
+
+    
+
+    document.onclick = function(ev){
+      var ev = ev || event;
+      //var target = ev.target || ev.srcElement;
+      var l = ev.clientX;
+      var t = ev.clientY;
+
+      var oDiv = document.createElement("div");
+      var body = document.getElementsByTagName("body")[0];
+      oDiv.className = "div1";
+      oDiv.style.top = document.documentElement.clientHeight+"px";
+     
+      
+      body.appendChild(oDiv);
+
+      oDiv.style.left = l+'px';      
+      //oDiv.style.top = top;
+      startMove(oDiv,{top:t});
+
+      setTimeout(function(){
+          body.removeChild(oDiv); 
+          for(var i= 0; i<100;i++){
+              var oDiv2 = document.createElement("div");
+              oDiv2.className = "div2";
+              oDiv2.style.top = t+"px";
+              oDiv2.style.left = l+"px";
+
+              var a=Math.round(Math.random()*0x1000000);//0x1000000 = 0xffffff+1
+              var c="00000".concat(a.toString(16));//补0；
+              
+
+              oDiv2.style.background = "#"+c.substr(c.length-6,6);//截取6位色码
+              body.appendChild(oDiv2);
+
+          }        
+
+          var aDiv = document.getElementsByTagName("div");
+          for(var i=0;i<aDiv.length;i++){
+
+            var numT = Math.floor((-Math.random()+Math.random())*document.documentElement.clientHeight);
+            var numL = Math.floor(Math.random()*document.documentElement.clientWidth);
+
+            startMove(aDiv[i],{left:numL,top:numT});
+
+            setTimeout(function(){
+                for(var i=0;i<aDiv.length;i++){
+                    body.removeChild(aDiv[i]);
+              }
+
+            },500);
+          }
+
+        },500);
+
+      // var oDiv2 = document.getElementById("div2");
+      
+
+
+
+
+    }
+   }
+  </script>
+</head>
+<body>
+  <!-- <div id="div1">
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <input type="button" value = "left" id = "btn1"/>
+  <input type="button" value = "right" id = "btn2" /> -->
+  <!-- <div id="div2"></div> -->
+</body>
+</html>
